@@ -24,11 +24,22 @@ CORPUS = os.getenv("AI201_CORPUS", "campus_life")
 
 
 # ─── Chunking (Milestone 3) ──────────────────────────────────────────────────
-# These are deliberately plain, generic numbers. Milestone 3 is where you
-# replace them with numbers that fit the documents you actually read.
+# These two are the baseline numbers, used only by chunker.py::fallback_split.
+# They are left alone on purpose so the fallback stays a fair comparison.
 
 CHUNK_SIZE = 800        # characters per chunk
 CHUNK_OVERLAP = 120     # characters shared between neighbouring chunks
+
+# These are the numbers chunker.py::split_documents actually works to.
+# CHUNK_MAX_CHARS is criteria.md target 4: nothing over 700 characters, because
+# longer chunks in these corpora stopped reading as a single clear answer.
+# CHUNK_MIN_CHARS is the other end of the same problem — a 150-character
+# fragment is too thin to answer anything, so units below it get merged with
+# their neighbour (never across documents, which would break citations).
+
+CHUNK_MAX_CHARS = 700          # hard ceiling, enforced on the final chunk text
+CHUNK_MIN_CHARS = 250          # merge anything smaller into the next unit
+CHUNK_SENTENCE_OVERLAP = 1     # sentences carried forward when a paragraph is cut
 
 
 # ─── Retrieval (Milestone 4) ─────────────────────────────────────────────────

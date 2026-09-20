@@ -26,11 +26,12 @@
      this repo.
 
      Milestone 5. -->
+I picked the campus_life corpus, which answers college-specific questions. Some of the questions that it answers are "How difficult is the History class?" or "When is the add/drop deadline and how does it work?" It is meant to answer the most common questions that college students tend to ask.
 
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size:**800
+**Overlap:**120
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -41,6 +42,7 @@
      more than pretending you got it right first time.
 
      Milestone 3. -->
+These numbers are appropriate for the response for the answers. The chunk size of 800 ensures that the responses aren't too long since the questions asked are fairly simple. I kept the overlap of 120 characters. Too much overlap can risk the chunks being too similar to each other. Less than that could make the different chunks for the same question be too different.
 
 ## Sample Chunks
 
@@ -52,31 +54,48 @@
      across.
 
      Milestone 3. -->
+     
 
-**Chunk 1** — source: `` — produced by: ``
+**Chunk 1** — source: `guide_accessibility.md#0 ` — produced by: `chunker.py::split_documents`
+Getting around the region with limited mobility
 
-```
-```
+An honest assessment rather than a promotional one. Some of these places are
+difficult and it is better to know in advance.
 
-**Chunk 2** — source: `` — produced by: ``
+**Chunk 2** — source: `guide_corry_vale.md#1` — produced by: `chunker.py::split_documents`
+Corry Vale — Getting around
 
-```
-```
+Nothing within the valley is walkable from anything else — the villages are two to four miles apart. There is one taxi, based in the largest village, and it must be booked a day ahead. Most visitors drive between villages and walk the footpaths in between.
 
-**Chunk 3** — source: `` — produced by: ``
+**Chunk 3** — source: `guide_elder_ness.md#3` — produced by: `chunker.py::split_documents`
+Elder Ness — When to go — Practical notes
 
-```
-```
+April to May and September to October for birds, which is what most visitors come for. Midsummer is pleasant and quiet. Winter is severe, the road floods more often, and the pub reduces to weekends only.
 
-**Chunk 4** — source: `` — produced by: ``
+Cash is still useful at the market and in smaller places, though cards are
+accepted almost everywhere now. Mobile coverage is good in the centre and
+patchy on the outskirts. The nearest full hospital is in Brightwater; there is
+a minor injuries unit locally with limited hours.
 
-```
-```
+**Chunk 4** — source: `guide_kestrelford.md#4` — produced by: `chunker.py::split_documents`
+Kestrelford — Practical notes
 
-**Chunk 5** — source: `` — produced by: ``
+Cash is still useful at the market and in smaller places, though cards are
+accepted almost everywhere now. Mobile coverage is good in the centre and
+patchy on the outskirts. The nearest full hospital is in Brightwater; there is
+a minor injuries unit locally with limited hours.
 
-```
-```
+**Chunk 5** — source: `guide_regional_transport.md#2` — produced by: `chunker.py::split_documents`
+Getting around the region — Driving
+
+Roads are good between the towns and poor on the approaches to both Kestrelford
+and Halden Bay. The Kestrelford approach is single-track with passing places
+for the final eight minutes. The Halden Bay coast road is cut into the cliff
+and is slow rather than difficult.
+
+Parking is the constraint rather than driving. Both Halden Bay lots fill by
+10am on summer weekends. Kestrelford's lower car park is free and involves a
+steep walk up.
 
 ## Sample Answer
 
@@ -84,13 +103,19 @@
      visible. Milestone 4. -->
 
 **Question:**
-
+What's BIOL 160 Cell Biology like?
 **Answer:**
+Based on the provided documents, BIOL 160 Cell Biology is a lecture course that meets three times a week with a weekly lab, and it has a reputation for being the heaviest first-year course, requiring 9 to 11 hours of real time a week. The workload is front-loaded, with the first month being heavier than the rest. Its assessment consists of four unit tests and a cumulative final that are not curved, and because the unit tests come roughly every three weeks, falling behind is very hard to recover from.
 
+Sources: `course_biol_160.txt`, `course_biol_160_exams.txt`, and `course_biol_160_workload.txt`.
+
+Sources retrieved: course_biol_160.txt, course_biol_160_exams.txt, course_biol_160_workload.txt, course_cs_210_exams.txt, course_phys_130.txt
 ```
 ```
 
 **My relevance cutoff:**
+
+I picked my cutoff to be 0.6 since that sits in between the two groups. When I was asking relevant questions according to the 5 chunks, the closest distance I got was 0.255. When I was asking the out of scope questions, the farthest distance I got was 0.919. The average of those two was 0.58, which I rounded up to 0.6.
 
 <!-- The number you set in config.py, and how you got there.
 
@@ -103,7 +128,7 @@
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| what's BIOL 160 Cell Biology like?|campus_life|0.287|
 
 ## How I Used AI
 
@@ -117,8 +142,10 @@
      Milestone 5. -->
 
 **1.**
+I used it to look at the chunks and determine whether they can stand on their own. I just pasted the chunks and asked Claude to determine what questions they are trying to answer. If Claude can come up with a question similar to the actual one, then the chunk can stand on its own.
 
 **2.**
+I used AI to rewrite the chunking algorithm based on my requirements. I wanted the chunks to be between 200 to 700 characters to ensure that the chunks contain the appropriate amount of information. These requirements were stated in the criteria.md file.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never

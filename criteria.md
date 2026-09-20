@@ -25,6 +25,7 @@ contains the answer.
 **Why this target:**
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
+We want the chunks to actually answer whatever question the user has. 5 out of 5 is an ideal situation that rarely happens, making it too strict. Going below 4 out of 5 isn't strict enough, because we want the system to actually answer the question.
 
 ---
 
@@ -35,6 +36,7 @@ Every answer the system produces names at least one source document.
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
+The answer should have sources to show that the answer comes from valid responses associated with the appropriate quesiton. One is enough to show that an answer is supported, but more would definitely be better.
 
 ---
 
@@ -52,6 +54,7 @@ in at least 4 of 5 tries.
 **Why this target:**
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
+     5 out of 5 tries would be an ideal situation that would rarely happen. That's why lowering to 4 out of 5 trials is realistic. Going below that would make it a lot less strict, which we don't want. We want to make sure the system says it doesn't have enough information instead of giving out incorrect information.
 
 ---
 
@@ -68,12 +71,13 @@ in at least 4 of 5 tries.
           sentence cut in half at either end."
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
+     No chunk is over 700 characters, since anything above that in my corpus
+     turned out to be a convuleted and unclear answer. Chunks shouldn't also be shorter than 200 characters.
 
 
 
 **Why this target:**
-
-
+If a chunk is over 700 characters, then the answer could be very convuluted. All the questions are simple, and they require simple answers. 700 characters ranges from 100 to 180 words which is an appropriate amount for any lengthy responses.
 
 ---
 
@@ -86,11 +90,10 @@ in at least 4 of 5 tries.
      handles badly, about source attribution being correct rather than merely
      present — anything, as long as it names a number or an observable
      outcome. -->
-
-
+     The "advice_threads" corpus must handle all the questions properly and provide a feedback from one of the responses, especially if the question is worded very similarly to that inside the corpus folder.
 
 **Why this target:**
-
+For any questions related to internships, even ones exactly the same as the one inside the corpus folder, the best distance is 0.704, meaning the model can't provide an answer. It should be able to provide a response, since they are written.
 
 
 ---
